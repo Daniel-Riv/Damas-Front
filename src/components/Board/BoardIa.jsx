@@ -2,11 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import "./piece.css";
+import { useNavigate } from "react-router-dom";
 const BoardIa = () => {
     const [pieces, setPieces] = React.useState([]);
     const [message, setMessage] = useState("");
     const [showAlert, setShowAlert] = useState(false);
+    const [restart, setRestart] = useState(false);
     const boardSize = 8;
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate('/')
+    }
 
     const formatBoard = (board) => {
         const flattenedBoard = board.flat();
@@ -27,6 +33,7 @@ const BoardIa = () => {
             console.error(error);
         }
     };
+
 
     
   const unformatBoard = (formattedBoard) => {
@@ -61,6 +68,11 @@ const BoardIa = () => {
         }
     };
 
+    const handleRestart = async () => {
+        fetchBoard();
+      };
+      
+
     useEffect(() => {
         // Realiza un movimiento de la IA cada vez que se actualiza el tablero.
         if (pieces.length > 0) {
@@ -72,6 +84,17 @@ const BoardIa = () => {
         fetchBoard();
     }, []);
 
+    useEffect(() => {
+        if (message) {
+          setShowAlert(true);
+          const timer = setTimeout(() => {
+            setShowAlert(false);
+          }, 5000);
+    
+          return () => clearTimeout(timer); // Esto limpia el temporizador si el componente se desmonta.
+        }
+      }, [message]);
+
     const renderSquare = (row, col) => {
         const position = `${String.fromCharCode(col + 97)}${row}`;
         const color = (row + col) % 2 === 0 ? 'white' : 'black';
@@ -79,8 +102,14 @@ const BoardIa = () => {
         const piece = pieces[index];
         if (!piece) return null;
 
-        const pieceType = piece[0] === 'c' ? 'checker' : piece === '---' ? '' : 'checker';
-        const pieceColor = piece[1] === '0' ? 'white' : 'black';
+        let pieceType = piece[0] === 'c' ? 'checker' : piece === '---' ? '' : 'king';
+        let pieceColor = piece[1] === '0' ? 'white' : 'black' ;
+  
+        if(pieceType === 'king'){
+          if(pieceColor ==='black' &&  row === 0){
+            pieceColor = 'blue';
+          }
+        }
 
         return (
             <div
@@ -114,6 +143,8 @@ const BoardIa = () => {
             <Row className="d-flex justify-content-center align-items-center h-100">
                 <Col xs={12} md={8} lg={6}>
                     {renderBoard()}
+                    <Button className="m-2" style={{ width: '85%', justifyContent: "center" }} onClick={handleRestart}>Reiniciar</Button>
+                    <Button className="m-2" style={{ width: '85%', justifyContent: "center" }} onClick={handleClick} >Inicio </Button>
                 </Col>
             </Row>
             {showAlert && message && (

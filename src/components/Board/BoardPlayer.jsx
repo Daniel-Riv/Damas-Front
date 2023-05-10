@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import "./piece.css";
+import { useNavigate } from "react-router-dom";
 
 const BoardPlayer = () => {
     const [pieces, setPieces] = React.useState([]);
@@ -10,18 +11,26 @@ const BoardPlayer = () => {
     const [message, setMessage] = useState("");
     const [showAlert, setShowAlert] = useState(false);
     const [playerTurn, setPlayerTurn] = useState(1); // Añadimos un estado para seguir el turno del jugador
+    const navigate = useNavigate();
 
     const boardSize = 8; 
+    const handleClick = () => {
+        navigate('/')
+    }
   
-    const formatBoard = (board) => { 
+     const formatBoard = (board) => { 
       const flattenedBoard = board.flat();
       return flattenedBoard.map((piece) => {
         if (piece === '.') {
           return '---';
         }
         return piece === 'c' ? 'c1' : piece === 'b' ? 'b0' : piece;
+        //return piece === 'c' ? 'c1' : piece === 'b' ? 'b0' : piece === 'n' ? 'n1' : piece;
+
       });
-    };
+    }; 
+
+    
   
     const fetchBoard = async () => {
       try {
@@ -186,11 +195,17 @@ const BoardPlayer = () => {
       const position = `${String.fromCharCode(col + 97)}${row}`;
       const color = (row + col) % 2 === 0 ? 'white' : 'black';
       const index = (parseInt(position[1])) * 8 + (position.charCodeAt(0) - 97);
-      const piece = pieces[index];
+      const piece = pieces[index]; 
       if (!piece) return null;
   
-      const pieceType = piece[0] === 'c' ? 'checker' : piece === '---' ? '' : 'checker';
-      const pieceColor = piece[1] === '0' ? 'white' : 'black';
+      let pieceType = piece[0] === 'c' ? 'checker' : piece === '---' ? '' : 'king';
+      let pieceColor = piece[1] === '0' ? 'white' : 'black' ;
+
+      if(pieceType === 'king'){
+        if(pieceColor ==='black' &&  row === 0){
+          pieceColor = 'blue';
+        }
+      }
   
       const selected = position === selectedPiece;
       const { result: possibleMove, numericPosition } = isPossibleMove(position);
@@ -241,6 +256,7 @@ const BoardPlayer = () => {
           <Col xs={12} md={8} lg={6}>
             {renderBoard()}
             <Button className="m-2" style={{ width: '85%', justifyContent: "center" }} onClick={handleSurrender} >Rendirse </Button>
+            <Button className="m-2" style={{ width: '85%', justifyContent: "center" }} onClick={handleClick} >Inicio </Button>
           </Col>
         </Row>
         {showAlert && message && (

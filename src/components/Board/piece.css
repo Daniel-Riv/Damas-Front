@@ -49,13 +49,22 @@
   cursor: pointer;
 }
 
-.piece.checker.white {
+.piece.king.white {
   background-color: #ffffff;
 }
 
 .piece.checker.black {
   background-color: #000000;
 }
+.piece.king.black {
+  background-color: #bc1c1c;
+}
+
+.piece.king.blue {
+  background-color: #237de2;
+}
+
+
 
 .square.selected {
   background-color: rgba(0, 255, 0, 0.3);

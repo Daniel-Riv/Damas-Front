@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { Container, Row, Col, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import "./piece.css";
+import { useNavigate } from "react-router-dom";
 
 const Board = () => {
   const [pieces, setPieces] = React.useState([]);
@@ -9,7 +10,13 @@ const Board = () => {
   const [possibleMoves, setPossibleMoves] = useState([]);
   const [message, setMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
   const boardSize = 8;
+
+
+  const handleClick = () => {
+      navigate('/')
+  }
 
   const formatBoard = (board) => {
     const flattenedBoard = board.flat();
@@ -18,6 +25,7 @@ const Board = () => {
         return '---';
       }
       return piece === 'c' ? 'c1' : piece === 'b' ? 'b0' : piece;
+      //return piece === 'c' ? 'c1' : piece === 'b' ? 'b0' : piece === 'n' ? 'n1' : piece;
     });
   };
 
@@ -37,7 +45,6 @@ const Board = () => {
         name: coord,
         position: position,
       });
-      console.log("aaaaa",position)
       if (typeof response.data === 'string') {
         setMessage(response.data)
         setShowAlert(true);
@@ -185,8 +192,14 @@ const Board = () => {
     const piece = pieces[index];
     if (!piece) return null;
 
-    const pieceType = piece[0] === 'c' ? 'checker' : piece === '---' ? '' : 'checker';
-    const pieceColor = piece[1] === '0' ? 'white' : 'black';
+    let pieceType = piece[0] === 'c' ? 'checker' : piece === '---' ? '' : 'king';
+    let pieceColor = piece[1] === '0' ? 'white' : 'black' ;
+
+    if(pieceType === 'king'){
+      if(pieceColor ==='black' &&  row === 0){
+        pieceColor = 'blue';
+      }
+    }
 
     const selected = position === selectedPiece;
     const { result: possibleMove } = isPossibleMove(position);
@@ -237,7 +250,9 @@ const Board = () => {
         <Col xs={12} md={8} lg={6}>
           {renderBoard()}
           <Button className="m-2" style={{ width: '85%', justifyContent: "center" }} onClick={handleSurrender} >Rendirse </Button>
+          <Button className="m-2" style={{ width: '85%', justifyContent: "center" }} onClick={handleClick} >Inicio </Button>
         </Col>
+        
       </Row>
       {showAlert && message && (
         <Row className="justify-content-center">

@@ -1,0 +1,15 @@
+.my-card {
+    width: 100%; /* Define el ancho que quieras para tu tarjeta */
+    margin: auto; /* Centra la tarjeta */
+  }
+
+  .my-card-style {
+    border-radius: 0 !important; /* ¡Esto quitará los bordos redondos! */
+}
+
+.card-header:first-child {
+    border-radius: 0 !important;
+    border: 0 !important;
+}
+
+  
