@@ -1,0 +1,65 @@
+.aicon{
+    font-size: 1.5rem;
+    padding: 10px;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+.card{
+    width: 20rem;
+    max-height: 12rem;
+    border-radius: 0.6em;
+    margin: 1em;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all ease 200ms;
+}
+
+.card-img {
+    max-height: 120px;
+    object-fit: cover; 
+}
+
+
+.card-title{
+    color: #020312;
+    margin-top: -0.2em;
+    text-align: center;
+    line-height: 1.4em;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: all ease-in 200ms;
+  }
+.btn-primary{
+    background-color: #000221;
+    color: #f7f7fb;
+    border: 1px solid #020312;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+.offcanvas {
+    width: 300px !important;
+    box-shadow: none !important; 
+  }
+  
+.offcanvas-end .offcanvas-backdrop.show {
+    display: none;
+  }
+  
+.sidemenu {
+    background-color: #fff;
+    border-left: 2px solid #f00;
+    padding: 20px;
+  }
+  

@@ -1,0 +1,66 @@
+.board-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 90%;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-template-areas:
+    'a0 b0 c0 d0 e0 f0 g0 h0'
+    'a1 b1 c1 d1 e1 f1 g1 h1'
+    'a2 b2 c2 d2 e2 f2 g2 h2'
+    'a3 b3 c3 d3 e3 f3 g3 h3'
+    'a4 b4 c4 d4 e4 f4 g4 h4'
+    'a5 b5 c5 d5 e5 f5 g5 h5'
+    'a6 b6 c6 d6 e6 f6 g6 h6'
+    'a7 b7 c7 d7 e7 f7 g7 h7';
+  gap: 0;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #9e9e9e;
+}
+
+.square {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+}
+
+.square.white {
+  background-color: #f0d9b5;
+}
+
+.square.black {
+  background-color: #b58863;
+}
+
+.piece {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.piece.checker.white {
+  background-color: #ffffff;
+}
+
+.piece.checker.black {
+  background-color: #000000;
+}
+
+.square.selected {
+  background-color: rgba(0, 255, 0, 0.3);
+}
+
+.square.possible-move {
+  background-color: rgba(0, 255, 0, 0.3); 
+}
