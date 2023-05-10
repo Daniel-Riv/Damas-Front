@@ -23,7 +23,7 @@ const Board = () => {
 
   const fetchBoard = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/board');
+      const response = await axios.get('https://damas-backend-production.up.railway.app/board');
       const formattedBoard = formatBoard(response.data);
       setPieces(formattedBoard);
     } catch (error) {
@@ -33,7 +33,7 @@ const Board = () => {
 
   const fetchValidMoves = async (coord, position) => {
     try {
-      const response = await axios.post("http://localhost:8000/valid_moves", {
+      const response = await axios.post("https://damas-backend-production.up.railway.app/valid_moves", {
         name: coord,
         position: position,
       });
@@ -53,7 +53,7 @@ const Board = () => {
 
   const handleSurrender = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/rendir');
+      const response = await axios.get('https://damas-backend-production.up.railway.app/rendir');
       console.log(response)
       if (typeof response.data[0] === 'string') {
         setMessage(response.data[0]);
@@ -70,7 +70,7 @@ const Board = () => {
   const handleMove = async (algebraicDestination) => {
     const numericDestination = algeNumericPositon(algebraicDestination);
     try {
-      const response = await axios.post('http://localhost:8000/main', {
+      const response = await axios.post('https://damas-backend-production.up.railway.app/main', {
         name: selectedPiece,
         move: numericDestination,
         position: unformatBoard(pieces),

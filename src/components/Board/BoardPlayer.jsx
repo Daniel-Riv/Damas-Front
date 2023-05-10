@@ -25,7 +25,7 @@ const BoardPlayer = () => {
   
     const fetchBoard = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/board');
+        const response = await axios.get('https://damas-backend-production.up.railway.app/board');
         const formattedBoard = formatBoard(response.data);
         setPieces(formattedBoard);
       } catch (error) {
@@ -35,7 +35,7 @@ const BoardPlayer = () => {
   
     const fetchValidMoves = async (coord, position) => {
       try {
-        const url = playerTurn === 1 ? 'http://localhost:8000/valid_moves' : 'http://localhost:8000/valid_moves_player2';
+        const url = playerTurn === 1 ? 'https://damas-backend-production.up.railway.app/valid_moves' : 'https://damas-backend-production.up.railway.app/valid_moves_player2';
       const response = await axios.post(url, {
         name: coord,
         position: position,
@@ -55,7 +55,7 @@ const BoardPlayer = () => {
   
     const handleSurrender = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/rendir');
+        const response = await axios.get('https://damas-backend-production.up.railway.app/rendir');
         console.log(response)
         if (typeof response.data[0] === 'string') {
           setMessage(response.data[0]);
@@ -72,7 +72,7 @@ const BoardPlayer = () => {
     const handleMove = async (algebraicDestination) => {
       const numericDestination = algeNumericPositon(algebraicDestination);
       try {
-        const url = playerTurn === 1 ? 'http://localhost:8000/player' : 'http://localhost:8000/player2';
+        const url = playerTurn === 1 ? 'https://damas-backend-production.up.railway.app/player' : 'https://damas-backend-production.up.railway.app/player2';
       const response = await axios.post(url, {
         name: selectedPiece,
         move: numericDestination,
@@ -105,7 +105,7 @@ const BoardPlayer = () => {
           setShowAlert(false);
         }, 5000);
   
-        return () => clearTimeout(timer); // Esto limpia el temporizador si el componente se desmonta.
+        return () => clearTimeout(timer); 
       }
     }, [message]);
   

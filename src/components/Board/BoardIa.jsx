@@ -20,7 +20,7 @@ const BoardIa = () => {
 
     const fetchBoard = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/board');
+            const response = await axios.get('https://damas-backend-production.up.railway.app/board');
             const formattedBoard = formatBoard(response.data);
             setPieces(formattedBoard);
         } catch (error) {
@@ -45,7 +45,7 @@ const BoardIa = () => {
 
     const makeAIMove = async () => {
         try {
-            const response = await axios.post('http://localhost:8000/machine', {
+            const response = await axios.post('https://damas-backend-production.up.railway.app/machine', {
                 position : unformatBoard(pieces)
             });
             console.log(response)
