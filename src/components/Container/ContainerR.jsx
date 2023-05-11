@@ -1,7 +1,9 @@
 import React from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap';
 
-const ContainerR = (props) => {
+const ContainerR = ({names},props) => {
+
+  console.log(names)
   return (
     <Container className="my-3">
       <Row >
@@ -14,9 +16,9 @@ const ContainerR = (props) => {
           <Container>
             <Row className="d-flex align-items-center">
               <Col xs={2} style={{ backgroundColor: 'white', width: '30px', height: '20px' }}></Col>
-              <Form.Label column sm="5">{props.jugador2}</Form.Label>
+              <Form.Label column sm="5">{names.name1}</Form.Label>
               <Col xs={2} style={{ backgroundColor: 'black', width: '30px', height: '20px' }}></Col>
-              <Form.Label column sm="5">{props.jugador1}</Form.Label>
+              <Form.Label column sm="5">{names.name2}</Form.Label>
             </Row>
             <Row className="d-flex align-items-center">
             <Col xs={1} style={{ backgroundColor: 'blue', width: '30px', height: '20px' }}></Col>
